@@ -1,0 +1,9 @@
+main-packr.go
+packrd
+/zero
+.history/
+tmp
+.vscode
+example/
+test-reports/
+.circleci/config-compiled.yml

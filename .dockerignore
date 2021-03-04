@@ -1,0 +1,8 @@
+Dockerfile
+README.md
+.history/
+.travis.yml
+.gitignore
+.git
+example/
+tmp/

@@ -1,0 +1,78 @@
+# http://goreleaser.com
+before:
+  hooks:
+    - go mod download
+builds:
+- env:
+  - CGO_ENABLED=0
+  ldflags:
+    - -X github.com/commitdev/zero/cmd.appVersion={{.Version}} -X github.com/commitdev/zero/cmd.appBuild={{.ShortCommit}}
+archives:
+- replacements:
+    darwin: Darwin
+    linux: Linux
+    386: i386
+    amd64: x86_64
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
+
+brews:
+  - name: zero
+    tap:
+      owner: commitdev
+      name: homebrew-zero
+    commit_author:
+      name: Commit.dev
+      email: contact@commit.dev
+    homepage: "https://github.com/commitdev/zero"
+    description: "Allow startup developers to ship to production on day 1."
+    dependencies:
+      - name: git
+        type: optional
+      - name: terraform
+        type: optional
+      - name: jq
+        type: optional
+      - name: awscli
+        type: optional
+      - name: kubectl
+        type: optional
+      - name: wget
+        type: optional
+    test: |
+      system "#{bin}/zero version"
+
+nfpms:
+  -
+    id: zero
+    package_name: zero
+    vendor: Commit.dev
+    homepage: https://github.com/commitdev/zero
+    maintainer: commitdev <contact@commit.dev>
+    description: "Allow startup developers to ship to production on day 1."
+    formats:
+      - apk
+      - deb
+      - rpm
+
+    recommends:
+      - awscli
+      - git
+      - jq
+      - wget
+
+    overrides:
+      apk:
+        recommends:
+          - aws-cli
+          - git
+          - jq
+          - wget
