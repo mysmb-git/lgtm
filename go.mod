@@ -3,7 +3,7 @@ module github.com/commitdev/zero
 go 1.13
 
 require (
-	github.com/aws/aws-sdk-go v1.30.12
+	github.com/aws/aws-sdk-go v1.34.0
 	github.com/coreos/go-semver v0.2.0
 	github.com/gabriel-vasile/mimetype v1.1.1
 	github.com/google/go-cmp v0.3.1
